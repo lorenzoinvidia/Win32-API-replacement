@@ -20,9 +20,9 @@ HMODULE WINAPI xGetModuleHandle(LPCWSTR moduleName) {
 	LIST_ENTRY *pListEntry = NULL;
 	LDR_DATA_TABLE_ENTRY *pLdrDataTableEntry = NULL;
 
-	if ( !(pPeb = GetPEB()) ){
+    if ( !(pPeb = GetPEB()) ){
         printf("PEB");
-        return NULL;  
+        return NULL;
     }
 
     // Get first module 
@@ -91,9 +91,7 @@ typedef int (WINAPI * _MessageBox)(
 int main(){
 
     _LoadLibrary pLoadLibrary = (_LoadLibrary)xGetProcAddress(xGetModuleHandle(L"kernel32.dll"), "LoadLibraryA");
-    
-    
-    //_GetProcAddress xGetProcAddress(L"KERNEL32.DLL", "GetProcAddress");
+    //_GetProcAddress pGetProcAddress = (_GetProcAddress)xGetProcAddress(L"kernel32.dll", "GetProcAddress");
     
     _MessageBox pMessageBox = (_MessageBox)xGetProcAddress(pLoadLibrary("user32.dll"), "MessageBoxW");
     pMessageBox(NULL, L"It works!", L"Hello World!", MB_OK);
